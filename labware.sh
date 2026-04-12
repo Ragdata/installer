@@ -88,5 +88,10 @@ print_status "Detected platform: ${PLATFORM}"
 print_status "Retrieving latest version of repository ..."
 clone_repo
 
-print_status "Executing repository installer ..."
-source "${REPO_DIR}/install.sh"
+if [ -f "${REPO_DIR}/install.sh" ]; then
+    print_status "Executing repository installer ..."
+    source "${REPO_DIR}/install.sh"
+else
+    print_error "Repository installer not found"
+    exit 1
+fi
