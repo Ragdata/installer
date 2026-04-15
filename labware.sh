@@ -100,7 +100,7 @@ clone_repo
 if [ -f "${REPO_DIR}/install.sh" ]; then
     print_status "Executing repository installer ..."
     chmod 0755 "${REPO_DIR}/install.sh"
-    bash "${REPO_DIR}/install.sh"
+    bash -i "${REPO_DIR}/install.sh"
 else
     print_error "Repository installer not found"
     exit 1
