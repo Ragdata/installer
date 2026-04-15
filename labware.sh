@@ -65,7 +65,6 @@ detect_platform() {
 }
 
 clone_repo() {
-
     if [ -d "${HOME}"/downloads/.labware ]; then
         print_status "Updating repository ${REPO_DIR}"
         cd "${HOME}"/downloads/.labware
@@ -100,7 +99,8 @@ clone_repo
 
 if [ -f "${REPO_DIR}/install.sh" ]; then
     print_status "Executing repository installer ..."
-    source "${REPO_DIR}/install.sh"
+    chmod 0755 "${REPO_DIR}/install.sh"
+    ./"${REPO_DIR}/install.sh"
 else
     print_error "Repository installer not found"
     exit 1
