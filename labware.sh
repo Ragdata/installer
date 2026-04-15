@@ -68,12 +68,14 @@ clone_repo() {
 
     if [ -d "${HOME}"/downloads/.labware ]; then
         print_status "Updating repository ${REPO_DIR}"
+        cd "${HOME}"/downloads/.labware
         if git pull; then
             print_status "Repository Updated!"
         else
             print_error "Failed to update repository ..."
             exit 1
         fi
+        cd --
     else
         print_status "Cloning repository ${REPO_URL} to ${REPO_DIR}"
         # Create install directory if it doesn't exist
