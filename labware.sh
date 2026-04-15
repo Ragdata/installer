@@ -66,17 +66,25 @@ detect_platform() {
 
 clone_repo() {
 
-    print_status "Cloning repository ${REPO_URL} to ${REPO_DIR}"
-
-    # Create install directory if it doesn't exist
-    mkdir -p "${HOME}/downloads"
-
-    # Clone repository
-    if git clone "${REPO_URL}" "${REPO_DIR}"; then
-        print_status "Repository Retrieved!"
+    if [ -d "${HOME}"/downloads/.labware ]; then
+        print_status "Updating repository ${REPO_DIR}"
+        if git pull; then
+            print_status "Repository Updated!"
+        else
+            print_error "Failed to update repository ..."
+            exit 1
+        fi
     else
-        print_error "Failed to retrieve repository ..."
-        exit 1
+        print_status "Cloning repository ${REPO_URL} to ${REPO_DIR}"
+        # Create install directory if it doesn't exist
+        mkdir -p "${HOME}/downloads"
+        # Clone repository
+        if git clone "${REPO_URL}" "${REPO_DIR}"; then
+            print_status "Repository Retrieved!"
+        else
+            print_error "Failed to retrieve repository ..."
+            exit 1
+        fi
     fi
 }
 ####################################################################
